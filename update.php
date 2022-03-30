@@ -18,6 +18,9 @@ if (isset($_SESSION["adm"])) {
     $backBtn = "dashboard.php";
 }
 
+$res = mysqli_query($connect, "SELECT * FROM users WHERE id=" . $_SESSION['user']);
+$rowe = mysqli_fetch_array($res, MYSQLI_ASSOC);
+
 //fetch and populate form
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -25,8 +28,8 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($connect, $sql);
     if (mysqli_num_rows($result) == 1) {
         $data = mysqli_fetch_assoc($result);
-        $f_name = $data['first_name'];
-        $l_name = $data['last_name'];
+        $first_name = $data['first_name'];
+        $last_name = $data['last_name'];
         $email = $data['email'];
         $date_birth = $data['date_of_birth'];
         $picture = $data['picture'];
@@ -36,8 +39,8 @@ if (isset($_GET['id'])) {
 //update
 $class = 'd-none';
 if (isset($_POST["submit"])) {
-    $f_name = $_POST['first_name'];
-    $l_name = $_POST['last_name'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $date_of_birth = $_POST['date_of_birth'];
     $id = $_POST['id'];
@@ -47,9 +50,9 @@ if (isset($_POST["submit"])) {
     $picture = $pictureArray->fileName;
     if ($pictureArray->error === 0) {
         ($_POST["picture"] == "avatar.png") ?: unlink("pictures/{$_POST["picture"]}");
-        $sql = "UPDATE users SET first_name = '$f_name', last_name = '$l_name', email = '$email', date_of_birth = '$date_of_birth', picture = '$pictureArray->fileName' WHERE id = {$id}";
+        $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email', date_of_birth = '$date_of_birth', picture = '$pictureArray->fileName' WHERE id = {$id}";
     } else {
-        $sql = "UPDATE users SET first_name = '$f_name', last_name = '$l_name', email = '$email', date_of_birth = '$date_of_birth' WHERE id = {$id}";
+        $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email', date_of_birth = '$date_of_birth' WHERE id = {$id}";
     }
     if (mysqli_query($connect, $sql) === true) {
         $class = "alert alert-success";
@@ -73,8 +76,9 @@ mysqli_close($connect);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Pet Adoption - Edit User</title>
     <?php require_once 'components/boot.php' ?>
+    <link rel="stylesheet" href="style/style.css">
     <style type="text/css">
         fieldset {
             margin: auto;
@@ -90,6 +94,26 @@ mysqli_close($connect);
 </head>
 
 <body>
+<div class="header-img">
+        <div class="header-text">
+      <h1 class="title mb-3">Pet Adoption</h1>
+      <p>Welcome to your profile account!</p>
+       <div class="d-flex mt-5">
+           <div>
+              <img class="userImage" src="pictures/<?php echo $rowe['picture']; ?>" alt="<?php echo $rowe['first_name']; ?>"> 
+           </div>
+            <div class="ms-5 mt-5">
+             <h3>Hi <?php echo $rowe['first_name']; ?></h3> 
+            <hr>
+            <p class="mt-5"><a class="btn btn-block btn-secondary" href="logout.php?logout">Sign Out</a></p>
+            <p><a class="btn btn-block btn-secondary" href="update.php?id=<?php echo $_SESSION['user'] ?>">Update your profile</a> </p>    
+            </div>
+                
+    </div>
+    </div>
+    </div>
+  </div>
+
     <div class="container">
         <div class="<?php echo $class; ?>" role="alert">
             <p><?php echo ($message) ?? ''; ?></p>
@@ -101,11 +125,11 @@ mysqli_close($connect);
             <table class="table">
                 <tr>
                     <th>First Name</th>
-                    <td><input class="form-control" type="text" name="first_name" placeholder="First Name" value="<?php echo $f_name ?>" /></td>
+                    <td><input class="form-control" type="text" name="first_name" placeholder="First Name" value="<?php echo $first_name ?>" /></td>
                 </tr>
                 <tr>
                     <th>Last Name</th>
-                    <td><input class="form-control" type="text" name="last_name" placeholder="Last Name" value="<?php echo $l_name ?>" /></td>
+                    <td><input class="form-control" type="text" name="last_name" placeholder="Last Name" value="<?php echo $last_name ?>" /></td>
                 </tr>
                 <tr>
                     <th>Email</th>
@@ -123,10 +147,13 @@ mysqli_close($connect);
                     <input type="hidden" name="id" value="<?php echo $data['id'] ?>" />
                     <input type="hidden" name="picture" value="<?php echo $picture ?>" />
                     <td><button name="submit" class="btn btn-success" type="submit">Save Changes</button></td>
-                    <td><a href="<?php echo $backBtn ?>"><button class="btn btn-warning" type="button">Back</button></a></td>
+                    <td><a href="<?php echo $backBtn ?>"><button class="btn btn-warning" type="button">Back Home</button></a></td>
                 </tr>
             </table>
         </form>
+    </div>
+    <div>
+        <p class="text-center m-5">Copyright 2022 &copy; Adrian Pedziwiatr</p>
     </div>
 </body>
 </html>

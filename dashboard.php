@@ -29,13 +29,13 @@ if ($result->num_rows > 0) {
           </div>
         </div>
         <div class='col-lg-4'>
-          <h4 class=''>Name: " .$row['name']."</h4>
+          <h4 class=''>Name: " .$row['aname']."</h4>
           <ul>
               <li>Kind: " .$row['kind']."</li>
               <li>Age: " .$row['age']."</li>
               <li>Size: " .$row['size']."</li>
               <li>Hobbies: " .$row['hobbies']."</li>
-              <li>Location: " .$row['location']."</li>
+              <li>Location: " .$row['loca']."</li>
               <li>Breed: " .$row['breed']."</li>
           </ul>
         </div>
@@ -43,7 +43,8 @@ if ($result->num_rows > 0) {
         <p class='text-center'><a class='btn btn-block btn-secondary m-5' href=''>Read More</a></p>    
         <p class='text-center'><a class='btn btn-block btn-success' href=''>Adopt</a> </p>    
             </div>
-            </div>";
+            </div>
+            <hr>";
     }
 } else {
     $tbody = "<tr><td colspan='5'><center>No Data Available </center></td></tr>";
@@ -58,7 +59,7 @@ mysqli_close($connect);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adm-Dashboard</title>
+    <title>Animals Adoption - Dashboard</title>
     <?php require_once 'components/boot.php' ?>
     <link rel="stylesheet" href="style/style.css">
     <style type="text/css">
@@ -98,7 +99,7 @@ mysqli_close($connect);
             <div class="col-3 text-center">
                 <img class="userImage" src="pictures/avatar.png" alt="Adm avatar">
                 <p class="text-center"><b>Administrator</b></p>
-                <a class="btn btn-success" href="products/index.php">Add Animals</a>
+                <a class="btn btn-success" href="products/index.php">Site Editor</a>
                 <a class="btn btn-danger" href="logout.php?logout">Sign Out</a>
             </div>
             <div class="col-9 mt-2">
@@ -115,6 +116,9 @@ mysqli_close($connect);
                 </table>
             </div>
         </div>
+    </div>
+    <div>
+        <p class="text-center m-5">Copyright 2022 &copy; Adrian Pedziwiatr</p>
     </div>
 </body>
 </html>

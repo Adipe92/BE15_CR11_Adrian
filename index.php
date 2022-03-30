@@ -47,7 +47,8 @@ if (isset($_POST['btn-login'])) {
         $result = mysqli_query($connect, $sql);
         $row = mysqli_fetch_assoc($result);
         $count = mysqli_num_rows($result);
-        if ($count == 1 && $row['pass'] == $pass) {
+        var_dump($row);
+        if ($count == 1 && $row['pass'] == $password) {
             if ($row['status'] == 'adm') {
                 $_SESSION['adm'] = $row['id'];
                 header("Location: dashboard.php");
@@ -103,5 +104,8 @@ mysqli_close($connect);
     </div>
     </div>
   </div>
+  <div>
+        <p class="text-center m-5">Copyright 2022 &copy; Adrian Pedziwiatr</p>
+    </div>
 </body>
 </html>

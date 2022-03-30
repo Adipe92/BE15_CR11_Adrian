@@ -15,27 +15,19 @@ require_once '../components/db_connect.php';
 
 if ($_GET['id']) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM products WHERE id = {$id}";
+    $sql = "SELECT * FROM animals WHERE id = {$id}";
     $result = mysqli_query($connect, $sql);
     if (mysqli_num_rows($result) == 1) {
         $data = mysqli_fetch_assoc($result);
-        $name = $data['name'];
-        $price = $data['price'];
+        $aname = $data['aname'];
+        $kind = $data['kind'];
+        $age = $data['age'];
+        $size = $data['size'];
+        $hobbies = $data['hobbies'];
+        $loca = $data['loca'];
+        $breed = $data['breed'];
+        $txt = $data['txt'];
         $picture = $data['picture'];
-        $supplier = $data['fk_supplierId'];
-        $resultSup = mysqli_query($connect, "SELECT * FROM suppliers");
-        $supList = "";
-        if (mysqli_num_rows($resultSup) > 0) {
-            while ($row = $resultSup->fetch_array(MYSQLI_ASSOC)) {
-                if ($row['supplierId'] == $supplier) {
-                    $supList .= "<option selected value='{$row['supplierId']}'>{$row['sup_name']}</option>";
-                } else {
-                    $supList .= "<option value='{$row['supplierId']}'>{$row['sup_name']}</option>";
-                }
-            }
-        } else {
-            $supList = "<li>There are no suppliers registered</li>";
-        }
     } else {
         header("location: error.php");
     }
@@ -51,6 +43,7 @@ if ($_GET['id']) {
 <head>
     <title>Edit Product</title>
     <?php require_once '../components/boot.php' ?>
+    <link rel="stylesheet" href="../style/style.css">
     <style type="text/css">
         fieldset {
             margin: auto;
@@ -61,34 +54,67 @@ if ($_GET['id']) {
         .img-thumbnail {
             width: 70px !important;
             height: 70px !important;
+            margin-left: 20px;
         }
     </style>
 </head>
 
 <body>
+<div class="header-img">
+        <div class="header-text">
+      <h1 class="title mb-3">Pet Adoption</h1>
+      <p>Welcome to your Admin account!</p>
+       
+                
+    </div>
+  </div>
+
     <fieldset>
-        <legend class='h2'>Update request <img class='img-thumbnail rounded-circle' src='pictures/<?php echo $picture ?>' alt="<?php echo $name ?>"></legend>
+        <legend class='h2'>Update request <img class='img-thumbnail rounded-circle' src='../pictures/<?php echo $picture ?>' alt="<?php echo $aname ?>"></legend>
         <form action="actions/a_update.php" method="post" enctype="multipart/form-data">
             <table class="table">
                 <tr>
                     <th>Name</th>
-                    <td><input class="form-control" type="text" name="name" placeholder="Product Name" value="<?php echo $name ?>" /></td>
+                    <td><input class="form-control" type="text" name="aname" placeholder="Animal Name" value="<?php echo $aname ?>" /></td>
                 </tr>
                 <tr>
-                    <th>Price</th>
-                    <td><input class="form-control" type="number" name="price" step="any" placeholder="Price" value="<?php echo $price ?>" /></td>
+                    <th>Kind</th>
+                    <td><input class="form-control" type="text" name="kind" placeholder="Animal Kind" value="<?php echo $kind ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td><input class="form-control" type="text" name="age" placeholder="Age" value="<?php echo $age ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Size</th>
+                    <td>
+                    <select name="size" class="form-select" id="inputGroupSelect01">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                <tr>
+                    <th>Hobbies</th>
+                    <td><input class="form-control" type="text" name="hobbies" placeholder="Hobbies" value="<?php echo $hobbies ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Localization</th>
+                    <td><input class="form-control" type="text" name="loca" placeholder="Localization" value="<?php echo $loca ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Breed</th>
+                    <td><input class="form-control" type="text" name="breed" placeholder="Product Name" value="<?php echo $breed ?>" /></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><textarea class="form-control" aria-label="With textarea" name="txt" value="<?php echo $txt ?>"></textarea></td>
                 </tr>
                 <tr>
                     <th>Picture</th>
                     <td><input class="form-control" type="file" name="picture" /></td>
-                </tr>
-                <tr>
-                    <th>Supplier</th>
-                    <td>
-                        <select class="form-select" name="supplier" aria-label="Default select example">
-                            <?php echo $supList; ?>
-                        </select>
-                    </td>
                 </tr>
                 <tr>
                     <input type="hidden" name="id" value="<?php echo $data['id'] ?>" />

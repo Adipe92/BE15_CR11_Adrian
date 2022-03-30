@@ -15,26 +15,28 @@ require_once '../../components/db_connect.php';
 require_once '../../components/file_upload.php';
 
 if ($_POST) {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $supplier = $_POST['supplier'];
+    $aname = $_POST['aname'];
+    $kind = $_POST['kind'];
+    $age = $_POST['age'];
+    $size = $_POST['size'];
+    $hobbies = $_POST['hobbies'];
+    $loca = $_POST['loca'];
+    $breed = $_POST['breed'];
+    $txt = $_POST['txt'];
     $uploadError = '';
     //this function exists in the service file upload.
     $picture = file_upload($_FILES['picture'], 'product');
 
-    if ($supplier == 'none') {
-        //checks if the supplier is undefined and insert null in the DB
-        $sql = "INSERT INTO products (name, price, picture, fk_supplierId) VALUES ('$name', $price, '$picture->fileName', null)";
-    } else {
-        $sql = "INSERT INTO products (name, price, picture, fk_supplierId) VALUES ('$name', $price, '$picture->fileName', $supplier)";
-    }
+
+    $sql = "INSERT INTO animals(aname, kind, age, size, hobbies, loca, breed, txt, picture) VALUES ('$aname', '$kind', '$age', '$size', '$hobbies', '$loca', '$breed', '$txt', '$picture->fileName')";
+    
 
     if (mysqli_query($connect, $sql) === true) {
         $class = "success";
         $message = "The entry below was successfully created <br>
             <table class='table w-50'><tr>
-            <td> $name </td>
-            <td> $price </td>
+            <td> $aname </td>
+            <td> $kind </td>
             </tr></table><hr>";
         $uploadError = ($picture->error != 0) ? $picture->ErrorMessage : '';
     } else {

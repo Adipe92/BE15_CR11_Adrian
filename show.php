@@ -17,7 +17,7 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
 
 $res = mysqli_query($connect, "SELECT * FROM users WHERE id=" . $_SESSION['user']);
 $rowe = mysqli_fetch_array($res, MYSQLI_ASSOC);
-$sql = "SELECT * FROM animals";
+$sql = "SELECT * FROM animals WHERE age > 8";
 $result = mysqli_query($connect ,$sql);
 $tbody=''; //this variable will hold the body for the table
 if(mysqli_num_rows($result)  > 0) {     
@@ -42,7 +42,7 @@ if(mysqli_num_rows($result)  > 0) {
         </div>
         <div class='col-lg-4'>
         <p class='text-center'><a class='btn btn-block btn-secondary m-5' href='more.php?id=" .$row['id']."'>Read More</a></p>    
-        <p class='text-center'><a class='btn btn-block btn-success' href='adopt.php?id=" .$row['id']."'>Adopt</a> </p>    
+        <p class='text-center'><a class='btn btn-block btn-success' href=''>Adopt</a> </p>    
             </div>
             </div>
             <hr>";
@@ -101,7 +101,7 @@ mysqli_close($connect);
         <br>
         <hr>
         <div class="mb-5">
-        <p class="mt-5"><a class="btn btn-block btn-secondary" href="show.php">Senior Animals</a></p>
+        <p class="mt-5"><a class="btn btn-block btn-secondary" href="home.php">Showe All Animals</a></p>
             <h3 class="m-5 text-center">Our pets for adoption</h3>
             <table class="table table-striped">
                 <tbody>

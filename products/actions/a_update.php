@@ -17,9 +17,14 @@ require_once '../../components/file_upload.php';
 
 
 if ($_POST) {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $supplier = $_POST['supplier'];
+    $aname = $_POST['aname'];
+    $kind = $_POST['kind'];
+    $age = $_POST['age'];
+    $size = $_POST['size'];
+    $hobbies = $_POST['hobbies'];
+    $loca = $_POST['loca'];
+    $breed = $_POST['breed'];
+    $txt = $_POST['txt'];
     $id = $_POST['id'];
     //variable for upload pictures errors is initialised
     $uploadError = '';
@@ -27,9 +32,9 @@ if ($_POST) {
     $picture = file_upload($_FILES['picture'], 'product'); //file_upload() called  
     if ($picture->error === 0) {
         ($_POST["picture"] == "product.png") ?: unlink("../pictures/$_POST[picture]");
-        $sql = "UPDATE products SET name = '$name', price = $price, picture = '$picture->fileName', fk_supplierId = $supplier WHERE id = {$id}";
+        $sql = "UPDATE animals SET aname = '$aname', kind = '$kind', age = '$age', size = '$size', hobbies = '$hobbies', loca = '$loca', breed = '$breed', txt = '$txt', picture = '$picture->fileName' WHERE id = {$id}";
     } else {
-        $sql = "UPDATE products SET name = '$name', price = $price, fk_supplierId = $supplier WHERE id = {$id}";
+        $sql = "UPDATE animals SET aname = '$aname', kind = '$kind', age = '$age', size = '$size', hobbies = '$hobbies', loca = '$loca', breed = '$breed', txt = '$txt', picture = '$picture->fileName' WHERE id = {$id}";
     }
     if (mysqli_query($connect, $sql) === TRUE) {
         $class = "success";

@@ -109,7 +109,7 @@ if (isset($_POST['btn-signup'])) {
     if (!$error) {
 
         $query = "INSERT INTO users(first_name, last_name, pass, date_of_birth, user_address, phone_nb, email, picture)
-                  VALUES('$fname', '$lname', '$pass', '$date_of_birth', '$user_address', '$phone_nb', '$email', '$picture->fileName')";
+                  VALUES('$fname', '$lname', '$password', '$date_of_birth', '$user_address', '$phone_nb', '$email', '$picture->fileName')";
         $res = mysqli_query($connect, $query);
 
         if ($res) {
@@ -190,5 +190,8 @@ mysqli_close($connect);
     </div>
     </div>
   </div>
+  <div>
+        <p class="text-center m-5">Copyright 2022 &copy; Adrian Pedziwiatr</p>
+    </div>
 </body>
 </html>
