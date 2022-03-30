@@ -40,8 +40,7 @@ if ($result->num_rows > 0) {
           </ul>
         </div>
         <div class='col-lg-4'>
-        <p class='text-center'><a class='btn btn-block btn-secondary m-5' href=''>Read More</a></p>    
-        <p class='text-center'><a class='btn btn-block btn-success' href=''>Adopt</a> </p>    
+        <p class='text-center'><a class='btn btn-block btn-secondary m-5' href='products/index.php'>Site Editor</a></p>       
             </div>
             </div>
             <hr>";
